@@ -1,0 +1,73 @@
+//Mauricio Colque Morales
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define MAX 7500
+
+double A[MAX][MAX], x[MAX], y[MAX];
+
+void resetArray()
+{
+	for(int i = 0; i < MAX; ++i){
+		y[i] = 0;
+	}
+}
+
+
+
+void first_loop()
+{
+	for (int i = 0; i < MAX; i++) 
+		for (int j = 0; j < MAX; j++) 
+			y[i] += A[i][j] * x[j];		
+}
+
+void second_loop()
+{
+	for (int j = 0; j < MAX; j++) 
+		for (int i = 0; i < MAX; i++) 
+			y[i] += A[i][j] * x[j];
+}
+
+int main()
+{
+
+	clock_t start, end;
+	double time_taken;
+	
+	srand(time(NULL));
+	
+	
+	for (int i = 0; i < MAX; i++) {
+		x[i] = (double) rand() / 150;
+		for (int j = 0; j < MAX; j++) {
+			A[i][j] = (double) rand() / 150;
+		}
+	}
+
+	resetArray();
+
+	//First loop
+	start = clock();
+
+	first_loop();
+	end = clock();
+	time_taken = (double) (end - start) / CLOCKS_PER_SEC;
+	printf("Time for first loop: %f\n", time_taken);
+
+	//resetting
+	resetArray();
+
+	//second loop
+	start = clock();
+	second_loop();
+
+	end = clock();
+	time_taken = (double) (end - start) / CLOCKS_PER_SEC;
+	printf("Time for second loop: %f", time_taken);
+
+
+
+	return 0;
+}

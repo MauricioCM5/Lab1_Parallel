@@ -1,0 +1,28 @@
+CXX = g++
+CXXFLAGS = -lncurses -O2
+
+TARGETS = exercise_1.out exercise_2.out comparison_results.out
+
+all: $(TARGETS)
+
+exercise_1.out: exercise_1.cpp
+	$(CXX) -o $@ $< $(CXXFLAGS)
+
+exercise_2.out: exercise_2.cpp
+	$(CXX) -o $@ $< $(CXXFLAGS)
+
+comparison_results.out: comparison_results.cpp
+	$(CXX) -o $@ $< $(CXXFLAGS)
+	
+exercise_1: exercise_1.out
+	./$<
+
+exercise_2: exercise_2.out
+	./$<
+	
+comparison_results: comparison_results.out
+	./$<	
+
+clean:
+	rm -f $(TARGETS)
+
