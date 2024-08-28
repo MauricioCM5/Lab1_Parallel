@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -lncurses -O2
+CXXFLAGS = -O2
 
 TARGETS = exercise_1.out exercise_2.out comparison_results.out
 

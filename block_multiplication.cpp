@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm> 
+using std::min;
+using std::rand;
+
+const int N = 100;
+typedef int matrix[N][N];
+
+
+void multiplication(matrix A, matrix B, matrix C, int size, int block_size) {
+    for (int i = 0; i < size; i += block_size) {
+        for (int j = 0; j < size; j += block_size) {
+            for (int k = 0; k < size; k += block_size) {
+                int max_i = min(i + block_size, size);
+                for (int ii = i; ii < max_i; ++ii) {
+                    int max_j = min(j + block_size, size);
+                    for (int jj = j; jj < max_j; ++jj) {
+                        int max_k = min(k + block_size, size);
+                        for (int kk = k; kk < max_k; ++kk) {
+                            C[ii][jj] += A[ii][kk] * B[kk][jj];
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+int main() {
+    matrix A, B, C;
+    int block_size = 16; 
+
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            A[i][j] = rand() % 10;
+            B[i][j] = rand() % 10;
+            C[i][j] = 0; 
+        }
+    }
+
+
+    multiplication(A, B, C, N, block_size);
+	return 0;
+}
